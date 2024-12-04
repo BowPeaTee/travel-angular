@@ -1,0 +1,126 @@
+<div class=".nav-div" style="height: 100vh">
+  <mat-toolbar color="primary">
+    <div class=".nav-div" fxShow="true" fxHide.gt-sm="true">
+      <button mat-icon-button nav-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <button mat-button class="link-style" class="companyName" routerLink="/">
+      <span>Travel Booker</span>
+    </button>
+
+    <div fxShow="true" fxHide.lt-md="true">
+      <button mat-button class="link-style" routerLink="tours">Packages</button>
+      <button
+        mat-button
+        class="link-style"
+        *ngIf="user == null"
+        routerLink="register"
+      >
+        Register
+      </button>
+      <button
+        mat-button
+        class="link-style"
+        *ngIf="user == null"
+        routerLink="login"
+      >
+        Login
+      </button>
+
+      <span class="example-fill-remaining-space"></span>
+
+      <button
+        mat-icon-button
+        *ngIf="user != null"
+        [matMenuTriggerFor]="menu"
+        aria-label="User Panel"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="cart">My Cart</button>
+        <button mat-menu-item routerLink="history">History</button>
+        <button mat-menu-item (click)="logOut()">Logout</button>
+        <button
+          mat-menu-item
+          class="link-style"
+          *ngIf="isUserAdmin"
+          routerLink="add/tour"
+        >
+          Add Trip
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill class="example-container">
+    <mat-sidenav
+      color="primary"
+      #sidenav
+      fxLayout="column"
+      mode="over"
+      opened="false"
+      fxHide.gt-sm="true"
+    >
+      <div class=".nav-div" fxLayout="column">
+        <button mat-button class="link-style" routerLink="tours">
+          Packages
+        </button>
+        <button
+          mat-button
+          class="link-style"
+          *ngIf="isUserAdmin"
+          routerLink="add/tour"
+        >
+          Add Tour
+        </button>
+        <button
+          mat-button
+          class="link-style"
+          *ngIf="user != null"
+          routerLink="cart"
+        >
+          My Cart
+        </button>
+        <button
+          mat-button
+          class="link-style"
+          *ngIf="user != null"
+          routerLink="history"
+        >
+          History
+        </button>
+        <button
+          mat-button
+          class="link-style"
+          *ngIf="user == null"
+          routerLink="register"
+        >
+          Register
+        </button>
+        <button
+          mat-button
+          class="link-style"
+          *ngIf="user == null"
+          routerLink="login"
+        >
+          Login
+        </button>
+        <button
+          mat-button
+          class="link-style"
+          *ngIf="user != null"
+          (click)="logOut()"
+        >
+          Logout
+        </button>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
